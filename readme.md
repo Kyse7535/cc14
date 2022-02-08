@@ -10,6 +10,11 @@ Commande symfony
 3. `symfony console make:migration`
 4. `symfony doctrine:migrations:migrate`
 
+# Question 3
+1. `composer require --dev orm-fixtures`
+2. `composer require fakerphp/faker`
+3. `symfony console doctrine:fixtures:load`
+
 
 
 
