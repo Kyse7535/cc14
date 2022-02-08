@@ -23,6 +23,13 @@ Commande symfony
 
 `composer require michelf/php-markdown`
 
+# Question 7
+
+1. `composer require symfony/security-bundle`
+2. `symfony console make:user`
+
+
+
 
 
 
