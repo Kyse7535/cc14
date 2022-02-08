@@ -15,6 +15,10 @@ Commande symfony
 2. `composer require fakerphp/faker`
 3. `symfony console doctrine:fixtures:load`
 
+# Question 4
+
+`symfony console make:crud Activite`
+
 
 
 
