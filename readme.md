@@ -19,8 +19,9 @@ Commande symfony
 
 `symfony console make:crud Activite`
 
+# Question 6
 
-
+`composer require michelf/php-markdown`
 
 
 
