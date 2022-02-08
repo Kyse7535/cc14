@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -18,7 +19,17 @@ class AppFixtures extends Fixture
             $activite = new Activite();
             $activite->setNom($this->faker->name());
             $activite->setDescription($this->faker->text());
+
+            $animateur = new User();
+            $animateur->setNom($this->faker->firstName());
+            $animateur->setPrenom($this->faker->lastName());
+            $animateur->setUsername($this->faker->userName());
+            $animateur->setPassword($this->faker->password(6,10));
+
+            $activite->setAnimateur($animateur);
+
             $manager->persist($activite);
+            $manager->persist($animateur);
         }
         $manager->flush();
     }
