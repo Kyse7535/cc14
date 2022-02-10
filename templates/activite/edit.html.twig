@@ -3,11 +3,13 @@
 {% block title %}Edit Activite{% endblock %}
 
 {% block body %}
-    <h1>Edit Activite</h1>
+    <div class="col-12 col-lg-6 offset-lg-3">
+        <h1>Edit Activite</h1>
 
-    {{ include('activite/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('activite/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('activite_index') }}">back to list</a>
+        <a href="{{ path('activite_index') }}" class="my-3 d-inline-block">back to list</a>
 
-    {{ include('activite/_delete_form.html.twig') }}
+        {{ include('activite/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

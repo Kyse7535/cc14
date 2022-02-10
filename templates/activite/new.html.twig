@@ -3,9 +3,11 @@
 {% block title %}New Activite{% endblock %}
 
 {% block body %}
-    <h1>Create new Activite</h1>
+    <div class="col-12 col-lg-6 offset-lg-3">
+        <h1>Create new Activite</h1>
 
-    {{ include('activite/_form.html.twig') }}
+        {{ include('activite/_form.html.twig') }}
 
-    <a href="{{ path('activite_index') }}">back to list</a>
+        <a href="{{ path('activite_index') }}" class="d-inline-block my-2">back to list</a>
+    </div>
 {% endblock %}
