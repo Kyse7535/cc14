@@ -10,3 +10,7 @@ import './styles/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
+
+function confirmInscription() {
+    confirm("Voeuillez confirmer votre inscription");
+}

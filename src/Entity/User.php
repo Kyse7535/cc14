@@ -35,9 +35,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $prenom;
 
+    #[ORM\ManyToMany(targetEntity: Activite::class, mappedBy: 'enfants')]
+    private $activitesEnfant;
+
+
+
     public function __construct()
     {
         $this->activites = new ArrayCollection();
+        $this->activitesEnfant = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,4 +169,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+    public function isAnimateur(): bool
+    {
+        return end($this->roles) === 'ROLE_ANIMATEUR';
+    }
+
+    /**
+     * @return Collection|Activite[]
+     */
+    public function getActivitesEnfant(): Collection
+    {
+        return $this->activitesEnfant;
+    }
+
+    public function addActivitesEnfant(Activite $activitesEnfant): self
+    {
+        if (!$this->activitesEnfant->contains($activitesEnfant)) {
+            $this->activitesEnfant[] = $activitesEnfant;
+            $activitesEnfant->addEnfant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivitesEnfant(Activite $activitesEnfant): self
+    {
+        if ($this->activitesEnfant->removeElement($activitesEnfant)) {
+            $activitesEnfant->removeEnfant($this);
+        }
+
+        return $this;
+    }
+
+
 }

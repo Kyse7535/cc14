@@ -3,6 +3,21 @@
 {% block title %}Activite index{% endblock %}
 
 {% block body %}
+    {% for message in app.session.getFlashBag.get('create_success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.session.getFlashBag.get('delete_success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.session.getFlashBag.get('modify_success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
     <h1 class="text-center m-2">Activite index</h1>
 
     <table class="table table-hover">
@@ -19,10 +34,13 @@
             <tr>
                 <td>{{ activite.id }}</td>
                 <td>{{ activite.nom }}</td>
-                <td>{{ activite.description | raw }}</td>
+                <td class="w-75">{{ activite.description | raw }}</td>
                 <td>
                     <a href="{{ path('activite_show', {'id': activite.id}) }}">show</a>
+                    {% if userConnectedIsAnimateur %}
                     <a href="{{ path('activite_edit', {'id': activite.id}) }}">edit</a>
+
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -33,5 +51,7 @@
         </tbody>
     </table>
 
+    {% if userConnectedIsAnimateur%}
     <a href="{{ path('activite_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

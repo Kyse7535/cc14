@@ -25,11 +25,25 @@ class AppFixtures extends Fixture
             $animateur->setPrenom($this->faker->lastName());
             $animateur->setUsername($this->faker->userName());
             $animateur->setPassword($this->faker->password(6,10));
+            $animateur->setRoles(['ROLE_ANIMATEUR']);
 
-            $activite->setAnimateur($animateur);
+            for($j = 0; $j < 2; $j ++) {
+                $enfant = new User();
+                $enfant->setNom($this->faker->firstName());
+                $enfant->setPrenom($this->faker->lastName());
+                $enfant->setUsername($this->faker->userName());
+                $enfant->setPassword($this->faker->password(6,10));
+                $enfant->setRoles(['ROLE_ENFANT']);
+                $activite->setAnimateur($animateur);
+                $activite->addEnfant($enfant);
+                $manager->persist($enfant);
+            }
+
+
 
             $manager->persist($activite);
             $manager->persist($animateur);
+
         }
         $manager->flush();
     }

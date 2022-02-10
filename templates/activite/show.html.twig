@@ -23,12 +23,44 @@
             <th>Animateur</th>
             <td>{{ activite.animateur.nom }} {{ activite.animateur.prenom }}</td>
         </tr>
+        <tr>
+            <th>Inscrits</th>
+            <td>
+                {% if activite.enfants|length == 0 %}
+                Aucun enfant inscrit
+                {% else %}
+                {% for enfant in activite.enfants %}
+                {{ enfant.nom }} {{ enfant.prenom }}
+                {% endfor %}
+                {% endif %}
+            </td>
+
+
+        </tr>
         </tbody>
     </table>
 
     <a href="{{ path('activite_index') }}" class="d-inline-block m-2">back to list</a>
 
-    <a href="{{ path('activite_edit', {'id': activite.id}) }}" class="d-inline-block m-2">edit</a>
 
+
+
+    {% if not userIsConnected %}
+        <a href="{{ path('activite_edit', {'id': activite.id}) }}" class="d-inline-block m-2">edit</a>
+        <a href="{{ path('activite_inscription', {'id': activite.id}) }}" onclick="confirm('Confimer votre inscription')"
+           class="d-inline-block m-2" >S'inscrire</a>
+    {% elseif userConnectedIsAnimateur %}
+        <a href="{{ path('activite_edit', {'id': activite.id}) }}" class="d-inline-block m-2">edit</a>
+    {% elseif userConnectedIsInscrit %}
+    <a href="{{ path('activite_desinscription', {'id': activite.id}) }}" onclick="confirm('Confimer votre desinscription')"
+       class="d-inline-block m-2" >Se désinscrire</a>
+    {% elseif userConnectedIsInscrit == false and userConnectedIsAnimateur == false %}
+    <a href="{{ path('activite_inscription', {'id': activite.id}) }}" onclick="confirm('Confimer votre inscription')"
+       class="d-inline-block m-2" >S'inscrire</a>
+    {% endif %}
+
+
+    {% if userConnectedIsAnimateur %}
     {{ include('activite/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

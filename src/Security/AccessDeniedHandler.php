@@ -12,7 +12,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
     public function handle(Request $request, AccessDeniedException $accessDeniedException): ?Response
     {
         // ...
-        $content = "<h1 class='text-center'>Accès réservé au propriétaire</h1>";
+        $content = "<h1 class='text-center'>Impossible d'aboutir à votre requête</h1>";
         return new Response($content, 403);
     }
 }

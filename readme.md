@@ -39,5 +39,9 @@ Commande symfony
 # Question 9
 `symfony console make:auth`
 
-
+# Question 12
+`symfony console make:entity Activite` pour rajouter le champ enfants
+`symfony console make:migration`
+`symfony console doctrine:migrations:migrate`
+`symfony console doctrine:fixtures:load`
 
