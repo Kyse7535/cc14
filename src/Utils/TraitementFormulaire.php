@@ -3,15 +3,17 @@
 use Michelf\Markdown;
 use Symfony\Component\Form\FormInterface;
 use App\Entity\Activite;
+use App\Entity\User;
 
 class TraitementFormulaire {
-    public static function create_an_activite(FormInterface $form): Activite
+    public static function create_an_activite(FormInterface $form, User $userConnected): Activite
     {
         $activite = new Activite();
         $nom = htmlspecialchars($form->get('nom')->getData());
         $description = Markdown::defaultTransform($form->get('description')->getData());
         $activite->setNom($nom);
         $activite->setDescription($description);
+        $activite->setAnimateur($userConnected);
         return $activite;
     }
 

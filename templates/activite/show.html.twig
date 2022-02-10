@@ -19,6 +19,10 @@
                 <th>Description</th>
                 <td>{{ activite.description |raw }}</td>
             </tr>
+        <tr>
+            <th>Animateur</th>
+            <td>{{ activite.animateur.nom }} {{ activite.animateur.prenom }}</td>
+        </tr>
         </tbody>
     </table>
 

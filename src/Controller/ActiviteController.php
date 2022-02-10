@@ -17,8 +17,9 @@ use App\Utils\TraitementFormulaire;
 #[Route('/activite')]
 class ActiviteController extends AbstractController
 {
+
     #[Route('/', name: 'activite_index', methods: ['GET'])]
-    public function index(ActiviteRepository $activiteRepository): Response
+    public function index(ActiviteRepository $activiteRepository, Request $request): Response
     {
         return $this->render('activite/index.html.twig', [
             'activites' => $activiteRepository->findAll(),
@@ -28,6 +29,7 @@ class ActiviteController extends AbstractController
     #[Route('/new', name: 'activite_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ANIMATEUR');
         $activite = new Activite();
         $form = $this->createFormBuilder($activite)
             ->add('nom', TextType::class)
@@ -36,7 +38,8 @@ class ActiviteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $activite = TraitementFormulaire::create_an_activite($form);
+            $currentUser = $this->getUser();
+            $activite = \TraitementFormulaire::create_an_activite($form, $currentUser);
             $entityManager->persist($activite);
             $entityManager->flush();
 

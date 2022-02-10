@@ -33,10 +33,11 @@ Commande symfony
 1. `symfony console make:entity activite` pour relier les entités user et activite
 2. `symfony console doctrine:schema:drop --force`
 3. `symmfony console make:migration`
-4. `symfony console doctrine:migrations:migrate latest`
+4. `symfony console doctrine:migrations:migrate `
 5. `symfony console doctrine:fixtures:load`
 
-
+# Question 9
+`symfony console make:auth`
 
 
 
