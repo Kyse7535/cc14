@@ -22,4 +22,9 @@ class TraitementFormulaire {
         $description = Markdown::defaultTransform($form->get('description')->getData());
         return $description;
     }
+
+    public static function isOwner(User $userConnected, Activite $activite)
+    {
+        return $activite->getAnimateur()->getUsername() === $userConnected->getUsername();
+    }
 }

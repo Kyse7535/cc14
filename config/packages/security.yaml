@@ -23,6 +23,7 @@ security:
             logout:
                 path: app_logout
                 target: /activite
+            access_denied_handler: App\Security\AccessDeniedHandler
                 # where to redirect after logout
                 # target: app_any_route
 

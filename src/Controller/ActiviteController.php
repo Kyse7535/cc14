@@ -63,6 +63,12 @@ class ActiviteController extends AbstractController
     #[Route('/{id}/edit', name: 'activite_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Activite $activite, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ANIMATEUR');
+        $userConnected = $this->getUser();
+        if (!\TraitementFormulaire::isOwner($userConnected, $activite))
+        {
+            throw $this->createAccessDeniedException();
+        }
         $form = $this->createForm(ActiviteType::class, $activite);
         $form->handleRequest($request);
 
@@ -82,6 +88,12 @@ class ActiviteController extends AbstractController
     #[Route('/{id}', name: 'activite_delete', methods: ['POST'])]
     public function delete(Request $request, Activite $activite, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ANIMATEUR');
+        $userConnected = $this->getUser();
+        if (!\TraitementFormulaire::isOwner($userConnected, $activite))
+        {
+            throw $this->createAccessDeniedException();
+        }
         if ($this->isCsrfTokenValid('delete'.$activite->getId(), $request->request->get('_token'))) {
             $entityManager->remove($activite);
             $entityManager->flush();
