@@ -8,9 +8,15 @@
 // any CSS you import will output into a single css file (app.scss in this case)
 import './styles/app.scss';
 
+import { Tooltip, Toast, Popover } from 'bootstrap';
+
 // start the Stimulus application
 import './bootstrap';
-
-function confirmInscription() {
-    confirm("Voeuillez confirmer votre inscription");
-}
+const $ = require('jquery');
+import 'bootstrap/js/dist/dropdown';
+require('bootstrap/js/dist/tooltip');
+require('bootstrap/js/dist/dropdown');
+require('bootstrap/js/dist/popover');
+$(document).ready(function() {
+    $('[data-toggle="popover"]').popover();
+});

@@ -14,26 +14,51 @@
         {% endblock %}
     </head>
     <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <!-- Container wrapper -->
+        <div class="container">
+            <!-- Navbar brand -->
+            <a class="navbar-brand text-white" href="/activite">
+                Accueil
+            </a>
 
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/activite">Activites
-                            <span class="visually-hidden">(current)</span>
-                        </a>
+
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if app.session.get('connected') == 'true' and app.session.get('isAdmin') == 'false' %}
+                    <li class="nav-item ">
+                        <a class="nav-link text-white" href="{{ path('mes_activites') }}">Mes activites</a>
                     </li>
-
+                    {% endif %}
+                    {% if app.session.get('isAdmin') == 'true' %}
+                    <li class="nav-item ">
+                        <a class="nav-link text-white" href="{{ path('user_index') }}">Users</a>
+                    </li>
+                    {% endif %}
                 </ul>
+                <!-- Left links -->
 
+                <div class="d-flex align-items-center">
+                    {% if app.session.get('connected') == 'false' %}
+                    <a href="{{path('app_login') }}" class="btn btn-info">
+                        Login
+                    </a>
+                    {% else %}
+                        <a href="{{ path('app_logout') }}" class="btn btn-info">
+                            Logout
+                             </a>
+                    {% endif %}
+                </div>
             </div>
+            <!-- Collapsible wrapper -->
         </div>
+        <!-- Container wrapper -->
     </nav>
+    <!-- Navbar -->
         {% block body %}
 
             {% for message in app.flashes('edit_success') %}

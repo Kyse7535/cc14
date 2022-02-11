@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Activite index{% endblock %}
+{% block title %}Activites{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
 
 {% block body %}
     {% for message in app.session.getFlashBag.get('create_success') %}
@@ -18,7 +21,17 @@
             {{ message }}
         </div>
     {% endfor %}
-    <h1 class="text-center m-2">Activite index</h1>
+    {% for message in app.session.getFlashBag.get('inscription_success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.session.getFlashBag.get('desinscription') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h1 class="text-center m-2">Activités</h1>
 
     <table class="table table-hover">
         <thead class="thead-dark">
@@ -37,7 +50,7 @@
                 <td class="w-75">{{ activite.description | raw }}</td>
                 <td>
                     <a href="{{ path('activite_show', {'id': activite.id}) }}">show</a>
-                    {% if userConnectedIsAnimateur %}
+                    {% if userConnectedIsAnimateur and app.session.get('connected') == 'true' %}
                     <a href="{{ path('activite_edit', {'id': activite.id}) }}">edit</a>
 
                     {% endif %}
@@ -51,7 +64,8 @@
         </tbody>
     </table>
 
-    {% if userConnectedIsAnimateur%}
+    {% if app.session.get('connected') == 'false' or userConnectedIsAnimateur == true and not userIsEnfant  %}
     <a href="{{ path('activite_new') }}">Create new</a>
+
     {% endif %}
 {% endblock %}

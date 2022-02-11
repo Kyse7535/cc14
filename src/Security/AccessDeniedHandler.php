@@ -12,7 +12,8 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
     public function handle(Request $request, AccessDeniedException $accessDeniedException): ?Response
     {
         // ...
-        $content = "<h1 class='text-center'>Impossible d'aboutir à votre requête</h1>";
+        $message = $accessDeniedException->getMessage();
+        $content = "<h1>$message</h1>";
         return new Response($content, 403);
     }
 }

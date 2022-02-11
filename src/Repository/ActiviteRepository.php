@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Activite;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Activite|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,22 +20,21 @@ class ActiviteRepository extends ServiceEntityRepository
         parent::__construct($registry, Activite::class);
     }
 
-    // /**
-    //  * @return Activite[] Returns an array of Activite objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Activite[] Returns an array of Activite objects
+      */
+    public function findByAnimateur($animateur)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('a.enfan = :val')
+            ->setParameter('val', $animateur)
             ->orderBy('a.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Activite
@@ -47,4 +47,5 @@ class ActiviteRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }

@@ -80,10 +80,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_ANIMATEUR';
 
         return array_unique($roles);
     }
+
+    const ROLES = array(
+        'roles.admin' => 'ROLE_ADMIN',
+        'roles.animateur' => 'ROLE_ANIMATEUR',
+        'roles.enfant' => 'ROLE_ENFANT'
+    );
 
     public function setRoles(array $roles): self
     {

@@ -45,3 +45,10 @@ Commande symfony
 `symfony console doctrine:migrations:migrate`
 `symfony console doctrine:fixtures:load`
 
+# Question 15
+`symfony console make:crud User`
+
+
+
+
+

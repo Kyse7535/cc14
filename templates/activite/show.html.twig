@@ -46,7 +46,6 @@
 
 
     {% if not userIsConnected %}
-        <a href="{{ path('activite_edit', {'id': activite.id}) }}" class="d-inline-block m-2">edit</a>
         <a href="{{ path('activite_inscription', {'id': activite.id}) }}" onclick="confirm('Confimer votre inscription')"
            class="d-inline-block m-2" >S'inscrire</a>
     {% elseif userConnectedIsAnimateur %}
@@ -54,7 +53,7 @@
     {% elseif userConnectedIsInscrit %}
     <a href="{{ path('activite_desinscription', {'id': activite.id}) }}" onclick="confirm('Confimer votre desinscription')"
        class="d-inline-block m-2" >Se désinscrire</a>
-    {% elseif userConnectedIsInscrit == false and userConnectedIsAnimateur == false %}
+    {% elseif userConnectedIsInscrit == false and userConnectedIsAnimateur == false and app.session.get('isAdmin') == 'false' %}
     <a href="{{ path('activite_inscription', {'id': activite.id}) }}" onclick="confirm('Confimer votre inscription')"
        class="d-inline-block m-2" >S'inscrire</a>
     {% endif %}
