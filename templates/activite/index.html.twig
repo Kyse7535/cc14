@@ -64,8 +64,11 @@
         </tbody>
     </table>
 
-    {% if app.session.get('connected') == 'false' or userConnectedIsAnimateur == true and not userIsEnfant  %}
-    <a href="{{ path('activite_new') }}">Create new</a>
+    {% if not(app.session.get('isEnfant'))  %}
+        <div class="d-flex justify-content-center w-100 mb-3">
+            <a href="{{ path('activite_new') }}" class="btn btn-primary">Create new</a>
+        </div>
+
 
     {% endif %}
 {% endblock %}

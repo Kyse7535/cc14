@@ -7,7 +7,6 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -76,10 +75,10 @@ class UserController extends AbstractController
             {
                 throw $this->createAccessDeniedException("Impossible d'être animateur et enfant à la fois");
             }
-            if ($userAlreadyAnimateur != $userIsAnimateur) {
+            if ($userAlreadyAnimateur == true && !$userIsAnimateur) {
                 throw $this->createAccessDeniedException("impossible retirer le role d'animateur à un animateur");
             }
-            if ($userAlreadyEnfant != $userIsEnfant) {
+            if ($userAlreadyEnfant == true && !$userIsEnfant) {
                 throw $this->createAccessDeniedException("impossible retier le role d'enfant à un enfant");
             }
             $entityManager->flush();

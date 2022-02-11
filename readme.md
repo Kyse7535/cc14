@@ -49,6 +49,11 @@ Commande symfony
 `symfony console make:crud User`
 
 
+# Question 16
 
+`symfony console doctrine:fixtures:load`
 
+# Question 17
+
+`symfony console doctrine:fixtures:load`
 

@@ -26,7 +26,7 @@ class ActiviteRepository extends ServiceEntityRepository
     public function findByAnimateur($animateur)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.enfan = :val')
+            ->andWhere('a.enfants = :val')
             ->setParameter('val', $animateur)
             ->orderBy('a.id', 'ASC')
             ->setMaxResults(10)

@@ -40,7 +40,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('activite_index') }}" class="d-inline-block m-2">back to list</a>
+    <div class="w-100 d-flex justify-content-center">
+        <a href="{{ path('activite_index') }}" class="d-inline-block m-2">back to list</a>
+    </div>
 
 
 
@@ -53,7 +55,7 @@
     {% elseif userConnectedIsInscrit %}
     <a href="{{ path('activite_desinscription', {'id': activite.id}) }}" onclick="confirm('Confimer votre desinscription')"
        class="d-inline-block m-2" >Se désinscrire</a>
-    {% elseif userConnectedIsInscrit == false and userConnectedIsAnimateur == false and app.session.get('isAdmin') == 'false' %}
+    {% elseif not(userConnectedIsInscrit) and not(userConnectedIsAnimateur) or app.session.get('isAdmin') == 'false' %}
     <a href="{{ path('activite_inscription', {'id': activite.id}) }}" onclick="confirm('Confimer votre inscription')"
        class="d-inline-block m-2" >S'inscrire</a>
     {% endif %}

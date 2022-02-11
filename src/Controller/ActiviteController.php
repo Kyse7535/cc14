@@ -49,13 +49,16 @@ class ActiviteController extends AbstractController
     #[Route('/mesactivites', name: 'mes_activites', methods: ['GET'])]
     public function mesActivites(ActiviteRepository $activiteRepository, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ANIMATEUR');
+        if ($request->getSession()->get('connected') == 'false') {
+            $this->denyAccessUnlessGranted(array('ROLE_ANIMATEUR'));
+        }
+
         $userConnected = $this->getUser();
         $userIsEnfant = in_array('ROLE_ENFANT', $request->getSession()->get('roles'));
-        $userConnectedIsAnimateur = $userConnected->isAnimateur();
+        $userConnectedIsAnimateur = $userConnected->isAnimateur() || $request->getSession()->get('isAdmin') == 'true';
         if ($userConnectedIsAnimateur)
         {
-            $activites = $activiteRepository->findByAnimateur($userConnected);
+            $activites = $userConnected->getActivites();
             return $this->render('activite/index.html.twig', [
                 'activites' => $activites,
                 'userConnectedIsAnimateur' => $userConnectedIsAnimateur,
@@ -171,7 +174,6 @@ class ActiviteController extends AbstractController
         $userIsAdmin = in_array('ROLE_ADMIN', $request->getSession()->get('roles'));
         $userConnected =  $this->getUser();
         if ($userIsAdmin){
-            dd('er');
             throw $this->createAccessDeniedException("impossible d'inscrire un admin à une activite");
         }
         if (!$userConnected->isAnimateur())

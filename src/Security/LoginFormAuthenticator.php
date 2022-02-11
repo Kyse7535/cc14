@@ -65,12 +65,16 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         }*/
         $username = $request->request->get('username');
         $userConnected = $this->userRepository->loadUserByIdentifier($username);
-        $userIsAdmin = in_array('ROLE_ADMIN', $userConnected->getRoles());
+        $userIsAdmin = in_array('ROLE_ADMIN', $userConnected->getRoles()) ? 'true' : 'false';
+        $userIsEnfant = in_array('ROLE_ENFANT', $userConnected->getRoles()) ? 'true' : 'false';
+        $userIsAnimateur = in_array('ROLE_ANIMATEUR', $userConnected->getRoles()) ? 'true' : 'false';
+        $request->getSession()->set('isEnfant', $userIsEnfant);
+        $request->getSession()->set('isAnimateur', $userIsAnimateur);
         $request->getSession()->set('roles', $userConnected->getRoles());
         $request->getSession()->set('connected', 'true');
-        if ($userIsAdmin)
+        if ($userIsAdmin == 'true')
         {
-            $request->getSession()->set('isAdmin', 'true');
+            $request->getSession()->set('isAnimateur', 'true');
             return new RedirectResponse($this->router->generate('user_index'));
         }
         // For example:
